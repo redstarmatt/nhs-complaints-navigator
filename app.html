@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Public Body Complaints Navigator</title>
+  <meta name="description" content="Free AI-powered tool to help UK citizens navigate complaints against any public body — NHS, councils, police, DWP, HMRC, schools, and more.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ── Landing Page ── -->
+  <div id="landing" class="landing">
+    <div class="landing__logo">Complaints Navigator</div>
+    <h1 class="landing__title">Navigate your complaint with confidence</h1>
+    <p class="landing__subtitle">
+      Free AI-powered guidance for complaints against any UK public body.
+      We'll listen, find the right pathway, and help you draft your complaint.
+    </p>
+    <p class="landing__bodies">
+      NHS &middot; Councils &middot; Police &middot; DWP &middot; HMRC &middot; Schools &middot; Social Care &middot; and more
+    </p>
+    <button id="start-btn" class="landing__cta">Start your complaint</button>
+
+    <div class="landing__features">
+      <div class="feature-card">
+        <div class="feature-card__title">Tell your story</div>
+        <div class="feature-card__desc">Describe what happened in your own words. No forms, no jargon.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card__title">Find the right route</div>
+        <div class="feature-card__desc">We identify the correct complaints pathway, step by step.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card__title">Get your complaint drafted</div>
+        <div class="feature-card__desc">AI drafts your complaint text — copy it into a form, send as an email, or post as a letter.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card__title">Know your rights</div>
+        <div class="feature-card__desc">Relevant legislation, deadlines, and escalation options explained clearly.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Chat Interface ── -->
+  <div id="chat-container" class="chat-container" role="main">
+    <header class="chat-header">
+      <button id="chat-back" class="chat-header__back" aria-label="Back to home">&larr; Back</button>
+      <h1 class="chat-header__title">Complaints Navigator</h1>
+      <div class="chat-header__controls">
+        <button id="auto-read-toggle" class="auto-read-toggle" aria-label="Toggle auto-read responses" title="Auto-read AI responses aloud">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          </svg>
+          <span>Auto-read</span>
+        </button>
+      </div>
+    </header>
+
+    <div id="chat-messages" class="chat-messages" role="log" aria-live="polite" aria-label="Chat messages">
+      <div id="typing-indicator" class="typing-indicator" aria-label="AI is typing">
+        <div class="typing-indicator__dots">
+          <span class="typing-indicator__dot"></span>
+          <span class="typing-indicator__dot"></span>
+          <span class="typing-indicator__dot"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-input-area">
+      <textarea
+        id="chat-input"
+        class="chat-input"
+        placeholder="Type your message..."
+        rows="1"
+        aria-label="Message input"
+      ></textarea>
+      <button id="chat-mic" class="chat-mic" aria-label="Voice input" title="Click to speak">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+          <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+          <line x1="12" y1="19" x2="12" y2="23"></line>
+          <line x1="8" y1="23" x2="16" y2="23"></line>
+        </svg>
+      </button>
+      <button id="chat-send" class="chat-send" aria-label="Send message">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="22" y1="2" x2="11" y2="13"></line>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ── Complaint Text Editor ── -->
+  <div id="letter-container" class="letter-container" role="main">
+    <header class="letter-header">
+      <button id="letter-back" class="letter-header__back" aria-label="Back to chat">&larr; Back to chat</button>
+      <h1 class="letter-header__title">Your Complaint Text</h1>
+      <div style="width:60px"></div>
+    </header>
+
+    <div class="letter-editor">
+      <p class="letter-usage-hint">You can copy this text into an online complaint form, send it as an email, or download it as a letter to post.</p>
+      <textarea
+        id="letter-textarea"
+        class="letter-textarea"
+        aria-label="Complaint text editor"
+        spellcheck="true"
+      ></textarea>
+      <div class="letter-inline-actions">
+        <button id="letter-copy" class="btn btn--primary">Copy to clipboard</button>
+        <button id="letter-download-pdf" class="btn btn--green">Download PDF</button>
+        <button id="letter-download-docx" class="btn btn--outline">Download Word</button>
+      </div>
+      <!-- Next Steps / Submission Panel (populated by JS) -->
+      <div id="next-steps-container"></div>
+    </div>
+  </div>
+
+  <!-- ── Toast ── -->
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <!-- ── Scripts ── -->
+  <script type="module">
+    import { init } from './js/chat.js';
+    init();
+  </script>
+
+</body>
+</html>
