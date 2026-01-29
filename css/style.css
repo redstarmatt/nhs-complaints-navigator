@@ -983,7 +983,7 @@ body {
   width: 100%;
   min-height: 400px;
   padding: 2rem;
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  border: 2px solid var(--nhs-green);
   border-radius: var(--radius-md);
   font-family: var(--font-body);
   font-size: 0.95rem;
@@ -993,12 +993,13 @@ body {
   background: var(--nhs-white);
   box-shadow: var(--shadow-sm);
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  cursor: text;
 }
 
 .letter-textarea:focus {
   outline: none;
-  border-color: var(--nhs-green);
-  box-shadow: 0 0 0 3px rgba(0, 135, 90, 0.1);
+  border-color: var(--nhs-blue);
+  box-shadow: 0 0 0 3px rgba(0, 96, 223, 0.12);
 }
 
 .letter-inline-actions {
