@@ -139,7 +139,7 @@ body {
 .landing__bodies {
   font-size: 0.875rem;
   font-weight: 500;
-  opacity: 0.6;
+  opacity: 0.8;
   margin-bottom: 2.5rem;
   max-width: 500px;
   letter-spacing: 0.02em;
@@ -243,7 +243,7 @@ body {
 
 .feature-card__desc {
   font-size: 0.875rem;
-  opacity: 0.75;
+  opacity: 0.85;
   line-height: 1.5;
 }
 
@@ -395,6 +395,23 @@ body {
 
 .btn--outline:hover {
   background: rgba(0, 96, 223, 0.06);
+}
+
+/* ── Focus Indicators (Accessibility) ── */
+.btn:focus-visible,
+.chat-mic:focus-visible,
+.chat-send:focus-visible,
+.chat-header__back:focus-visible,
+.letter-header__back:focus-visible,
+.diary-header__back:focus-visible,
+.auto-read-toggle:focus-visible,
+.landing__cta:focus-visible,
+.landing__data-link:focus-visible,
+.consent-gate__link:focus-visible,
+.saved-session-card__btn:focus-visible,
+a:focus-visible {
+  outline: 3px solid var(--nhs-blue);
+  outline-offset: 2px;
 }
 
 /* ── Chat Interface ── */
@@ -615,7 +632,7 @@ body {
 
 .typing-indicator__label {
   font-size: 0.8rem;
-  color: var(--nhs-grey);
+  color: var(--nhs-dark-grey);
   font-weight: 500;
   white-space: nowrap;
   transition: opacity 0.2s ease;
@@ -907,7 +924,7 @@ body {
 
 .pathway-step__timeline {
   font-size: 0.75rem;
-  color: var(--nhs-aqua);
+  color: #007a71;
   font-weight: 600;
   margin-top: 0.25rem;
 }
@@ -1324,7 +1341,7 @@ body {
 
 .pathway-prereqs__item {
   font-size: 0.85rem;
-  color: #856404;
+  color: #6b4f00;
   line-height: 1.5;
   padding-left: 1.25rem;
   position: relative;
@@ -2504,7 +2521,7 @@ body {
 
 .saved-session-card__date {
   font-size: 0.75rem;
-  opacity: 0.6;
+  opacity: 0.8;
 }
 
 .saved-session-card__status {

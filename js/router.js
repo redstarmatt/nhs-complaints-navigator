@@ -97,7 +97,7 @@ const PATHWAYS = {
         timeline: 'Investigation can take 6-12 months',
         contactEmail: 'phso.enquiries@ombudsman.org.uk',
         portalUrl: 'https://www.ombudsman.org.uk/making-complaint',
-        postalAddress: 'Parliamentary and Health Service Ombudsman, Millbank Tower, Millbank, London SW1P 4QP',
+        postalAddress: 'Parliamentary and Health Service Ombudsman, Citygate, Mosley Street, Manchester M2 3HQ',
         acknowledgmentTimeline: '5 working days',
         escalationTrigger: 'The PHSO is the final stage — their decisions can be challenged only by judicial review',
         infoNeeded: [
@@ -178,7 +178,7 @@ const PATHWAYS = {
         timeline: 'Investigation can take 6-12 months',
         contactEmail: 'phso.enquiries@ombudsman.org.uk',
         portalUrl: 'https://www.ombudsman.org.uk/making-complaint',
-        postalAddress: 'Parliamentary and Health Service Ombudsman, Millbank Tower, Millbank, London SW1P 4QP',
+        postalAddress: 'Parliamentary and Health Service Ombudsman, Citygate, Mosley Street, Manchester M2 3HQ',
         acknowledgmentTimeline: '5 working days',
         escalationTrigger: 'The PHSO is the final stage',
         infoNeeded: [
@@ -658,7 +658,7 @@ const PATHWAYS = {
         name: 'Independent Case Examiner (ICE)',
         description: 'If DWP\'s internal complaints process does not resolve your issue, you can escalate to the Independent Case Examiner.',
         timeline: 'Several months — ICE has a significant backlog',
-        contactEmail: 'ice@dwp.gov.uk',
+        contactEmail: 'contact@ice.gov.uk',
         portalUrl: 'https://www.gov.uk/government/organisations/independent-case-examiner',
         postalAddress: 'Independent Case Examiner, PO Box 209, Bootle L20 7WA',
         acknowledgmentTimeline: 'A few weeks (due to volume)',
@@ -676,7 +676,7 @@ const PATHWAYS = {
         timeline: 'Several months',
         contactEmail: 'phso.enquiries@ombudsman.org.uk',
         portalUrl: 'https://www.ombudsman.org.uk/making-complaint',
-        postalAddress: 'Parliamentary and Health Service Ombudsman, Millbank Tower, Millbank, London SW1P 4QP',
+        postalAddress: 'Parliamentary and Health Service Ombudsman, Citygate, Mosley Street, Manchester M2 3HQ',
         acknowledgmentTimeline: '5 working days',
         escalationTrigger: 'The PHSO is the final stage',
         infoNeeded: [
@@ -774,7 +774,7 @@ const PATHWAYS = {
         name: 'Independent Case Examiner / PHSO',
         description: 'If the DWP complaints process doesn\'t resolve your service issue, escalate to the Independent Case Examiner, then the PHSO.',
         timeline: 'Several months',
-        contactEmail: 'ice@dwp.gov.uk',
+        contactEmail: 'contact@ice.gov.uk',
         portalUrl: 'https://www.gov.uk/government/organisations/independent-case-examiner',
         postalAddress: 'Independent Case Examiner, PO Box 209, Bootle L20 7WA',
         acknowledgmentTimeline: 'A few weeks',
@@ -854,7 +854,7 @@ const PATHWAYS = {
         timeline: 'Investigation can take several months',
         contactEmail: 'enquiries@adjudicatorsoffice.gov.uk',
         portalUrl: 'https://www.gov.uk/government/organisations/the-adjudicators-office',
-        postalAddress: 'The Adjudicator\'s Office, PO Box 10280, Nottingham NG2 9PF',
+        postalAddress: 'The Adjudicator\'s Office, PO Box 11222, Nottingham NG2 9AD',
         acknowledgmentTimeline: '10 working days',
         escalationTrigger: 'If the Adjudicator cannot resolve your complaint',
         infoNeeded: [
@@ -870,7 +870,7 @@ const PATHWAYS = {
         timeline: 'Several months',
         contactEmail: 'phso.enquiries@ombudsman.org.uk',
         portalUrl: 'https://www.ombudsman.org.uk/making-complaint',
-        postalAddress: 'Parliamentary and Health Service Ombudsman, Millbank Tower, Millbank, London SW1P 4QP',
+        postalAddress: 'Parliamentary and Health Service Ombudsman, Citygate, Mosley Street, Manchester M2 3HQ',
         acknowledgmentTimeline: '5 working days',
         escalationTrigger: 'The PHSO is the final stage',
         infoNeeded: [
@@ -1918,7 +1918,7 @@ const PATHWAYS = {
         timeline: 'Investigation can take several months',
         contactEmail: 'phso.enquiries@ombudsman.org.uk',
         portalUrl: 'https://www.ombudsman.org.uk/making-complaint',
-        postalAddress: 'Parliamentary and Health Service Ombudsman, Millbank Tower, Millbank, London SW1P 4QP',
+        postalAddress: 'Parliamentary and Health Service Ombudsman, Citygate, Mosley Street, Manchester M2 3HQ',
         acknowledgmentTimeline: '5 working days',
         escalationTrigger: 'The PHSO is the final stage',
         infoNeeded: [
