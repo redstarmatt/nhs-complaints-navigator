@@ -1,3 +1,82 @@
 Public Body Complaints Navigator — Progress Log
 ================================================
 
+## Iteration 1 — Project Setup & Journey Map
+- Created index.html as a planning/journey-map document (not the app itself)
+- Established project structure: vanilla JS, no frameworks, mobile-first CSS
+- Decided on Express backend to proxy Gemini API calls (keep API key server-side)
+- Hosting target: Railway
+
+## Iteration 2 — Complaint Process Redesign
+- Redesigned complaint pathways based on real UK public body complaint forms
+- Learned: each public body has distinct processes, timelines, and escalation routes
+- Key insight: users need to know *where* to complain first (PALS, ICB, IOPC, etc.)
+  before drafting a letter — routing must come before letter generation
+
+## Iteration 3 — Editable Complaint Text
+- Made the complaint letter textarea clearly editable with visual affordances
+- Learned: users need to feel ownership of the letter — it should read as *their* words,
+  not AI-generated text
+
+## Iteration 4 — Anti-Embellishment
+- Aggressively clamped down on Gemini embellishing complaint text
+- Learned: LLMs default to formal, dramatic language that doesn't sound like the user
+- Solution: strict system prompt rules forbidding padding, dramatisation, and formal register
+- The letter must use the user's own words and tone, not "I am writing to formally express
+  my profound dissatisfaction"
+
+## Iteration 5 — Full Feature Build
+- Completed all Phase 1 user stories plus extras:
+  - Session save/resume (localStorage, 30-day expiry, max 10 sessions)
+  - GDPR consent gate (3 mandatory checkboxes before starting)
+  - Complaint diary (track sent letters, responses, phone calls)
+  - Voice input (Web Speech API) and text-to-speech (Speech Synthesis)
+  - MP referral with Parliament API lookup and plain-language letter
+  - PDF and DOCX export via server-side generation (pdfkit, docx)
+  - Postcode lookup (Postcodes.io) for local authority, ICB, police force
+  - 8+ complaint pathways with nation-aware routing (England, Scotland, Wales, NI)
+  - Deadline calculator with bank holiday awareness
+  - Rate limiting (20 req/min per IP)
+  - Identifier redaction (NHS numbers, NI numbers stripped before sending to Gemini)
+  - Data protection docs (DPIA, risk analysis, appropriate policy document)
+
+### Key Learnings
+
+**Architecture**
+- Proxying all external APIs through Express keeps secrets server-side and allows
+  rate limiting, error sanitisation, and logging in one place
+- localStorage is sufficient for session persistence at this scale; no database needed
+- ES modules work well for vanilla JS — clean separation of concerns across 4 JS files
+
+**AI/Prompt Engineering**
+- Conversation-style intake extracts better facts than a form — users share more context
+- Anti-embellishment rules must be aggressive and repeated in the system prompt;
+  Gemini reverts to formal language if given any wiggle room
+- Redacting identifiers before sending to Gemini and reinserting locally is a simple
+  but effective privacy measure
+- Safeguarding logic must be prioritised above all other routing (emergency > crime >
+  safeguarding > regulatory > standard complaint)
+
+**UK Complaints Landscape**
+- Every public body has a different process, different timelines, different ombudsman
+- Devolved nations (Scotland, Wales, NI) have entirely separate complaint bodies
+  (e.g. SPSO instead of PHSO, Public Services Ombudsman for Wales)
+- Time limits vary wildly: NHS is 12 months, police is 12 months, council is 12 months,
+  but DWP mandatory reconsideration is only 1 month
+- PALS is not a complaint — it's informal resolution; users must be told this clearly
+- MPs can intervene at any stage but are most useful after the ombudsman route stalls
+
+**UX**
+- Mobile-first is essential — many users will access this on phones
+- Voice input matters for accessibility and for users who find typing difficult
+- The letter review gate (confirm facts before downloading) prevents users from
+  sending inaccurate complaints
+- Toast notifications are less intrusive than alerts for non-critical feedback
+- AI disclaimer must be visible at all times — users need to know this is guidance,
+  not legal advice
+
+## What's Next
+- Manual QA pass across all pathways and edge cases
+- Content accuracy review by someone with complaints process expertise
+- Production deployment and monitoring
+- Phase 2 planning: additional pathways, analytics, accessibility audit
