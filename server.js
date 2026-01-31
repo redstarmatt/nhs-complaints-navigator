@@ -7,15 +7,63 @@ const nodemailer = require('nodemailer');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Sanitise error objects to strip personal data from logs
+function sanitiseError(err) {
+  if (!err) return 'Unknown error';
+  const msg = err.message || String(err);
+  // Strip potential postcodes, NHS numbers, NI numbers, email addresses
+  return msg
+    .replace(/\b[A-Z]{1,2}\d[A-Z\d]?\s?\d[A-Z]{2}\b/gi, '[POSTCODE]')
+    .replace(/\b\d{3}\s?\d{3}\s?\d{4}\b/g, '[NHS_NUMBER]')
+    .replace(/\b[A-Z]{2}\s?\d{2}\s?\d{2}\s?\d{2}\s?[A-D]\b/gi, '[NI_NUMBER]')
+    .replace(/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z]{2,}\b/gi, '[EMAIL]');
+}
+
 const GEMINI_API_URL =
   'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
+
+// ── In-memory rate limiter (per IP, for /api/chat) ──
+const RATE_LIMIT_WINDOW_MS = 60 * 1000; // 1 minute
+const RATE_LIMIT_MAX = 20;              // max requests per window
+const rateLimitStore = new Map();       // IP → { count, resetTime }
+
+// Prune stale entries every 5 minutes to prevent memory leak
+setInterval(() => {
+  const now = Date.now();
+  for (const [ip, entry] of rateLimitStore) {
+    if (now > entry.resetTime) rateLimitStore.delete(ip);
+  }
+}, 5 * 60 * 1000);
+
+function rateLimiter(req, res, next) {
+  const ip = req.ip || req.socket.remoteAddress || 'unknown';
+  const now = Date.now();
+  let entry = rateLimitStore.get(ip);
+
+  if (!entry || now > entry.resetTime) {
+    entry = { count: 0, resetTime: now + RATE_LIMIT_WINDOW_MS };
+    rateLimitStore.set(ip, entry);
+  }
+
+  entry.count++;
+
+  res.setHeader('X-RateLimit-Limit', RATE_LIMIT_MAX);
+  res.setHeader('X-RateLimit-Remaining', Math.max(0, RATE_LIMIT_MAX - entry.count));
+  res.setHeader('X-RateLimit-Reset', Math.ceil(entry.resetTime / 1000));
+
+  if (entry.count > RATE_LIMIT_MAX) {
+    return res.status(429).json({ error: 'Too many requests. Please wait a moment before trying again.' });
+  }
+
+  next();
+}
 
 // Serve static files from project root
 app.use(express.static(path.join(__dirname)));
 app.use(express.json({ limit: '1mb' }));
 
-// Proxy chat requests to Gemini API
-app.post('/api/chat', async (req, res) => {
+// Proxy chat requests to Gemini API (rate-limited)
+app.post('/api/chat', rateLimiter, async (req, res) => {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
     return res.status(500).json({ error: 'Server misconfigured: no GEMINI_API_KEY set.' });
@@ -78,7 +126,7 @@ app.post('/api/chat', async (req, res) => {
 
     res.json({ text });
   } catch (err) {
-    console.error('Gemini proxy error:', err);
+    console.error('Gemini proxy error:', sanitiseError(err));
     res.status(502).json({ error: 'Could not reach Gemini API.' });
   }
 });
@@ -130,7 +178,7 @@ app.post('/api/generate-pdf', (req, res) => {
 
     doc.end();
   } catch (err) {
-    console.error('PDF generation error:', err);
+    console.error('PDF generation error:', sanitiseError(err));
     if (!res.headersSent) {
       res.status(500).json({ error: 'Failed to generate PDF.' });
     }
@@ -202,7 +250,7 @@ app.post('/api/generate-docx', async (req, res) => {
     res.setHeader('Content-Disposition', `attachment; filename="complaint-letter-${new Date().toISOString().slice(0, 10)}.docx"`);
     res.send(buffer);
   } catch (err) {
-    console.error('DOCX generation error:', err);
+    console.error('DOCX generation error:', sanitiseError(err));
     res.status(500).json({ error: 'Failed to generate Word document.' });
   }
 });
@@ -288,8 +336,67 @@ app.post('/api/send-email', async (req, res) => {
 
     res.json({ success: true, message: 'Email sent successfully.' });
   } catch (err) {
-    console.error('Email send error:', err);
+    console.error('Email send error:', sanitiseError(err));
     res.status(500).json({ error: 'Failed to send email. Please download the letter and send it manually.' });
+  }
+});
+
+// Postcode lookup — proxy to Postcodes.io
+app.get('/api/postcode/:postcode', async (req, res) => {
+  const postcode = req.params.postcode.trim().replace(/\s+/g, '');
+  // Basic UK postcode validation
+  if (!/^[A-Z]{1,2}\d[A-Z\d]?\d[A-Z]{2}$/i.test(postcode)) {
+    return res.status(400).json({ error: 'Invalid UK postcode format.' });
+  }
+
+  try {
+    const response = await fetch(`https://api.postcodes.io/postcodes/${encodeURIComponent(postcode)}`);
+    if (!response.ok) {
+      return res.status(404).json({ error: 'Postcode not found.' });
+    }
+    const data = await response.json();
+    if (data.status !== 200 || !data.result) {
+      return res.status(404).json({ error: 'Postcode not found.' });
+    }
+
+    const r = data.result;
+    res.json({
+      council: r.admin_district || null,
+      icb: r.ccg || null,
+      policeForce: r.pfa || null,
+      country: r.country || 'England'
+    });
+  } catch (err) {
+    console.error('Postcode lookup error:', sanitiseError(err));
+    res.status(502).json({ error: 'Could not reach postcode lookup service.' });
+  }
+});
+
+// MP lookup — proxy to UK Parliament Members API
+app.get('/api/mp/:postcode', async (req, res) => {
+  const postcode = req.params.postcode.trim();
+
+  try {
+    const response = await fetch(`https://members-api.parliament.uk/api/Members/Search?PostcodeSearch=${encodeURIComponent(postcode)}&House=1`);
+    if (!response.ok) {
+      return res.status(502).json({ error: 'Could not reach Parliament Members API.' });
+    }
+    const data = await response.json();
+    const items = data.items;
+    if (!items || items.length === 0) {
+      return res.status(404).json({ error: 'No MP found for this postcode.' });
+    }
+
+    const member = items[0].value;
+    res.json({
+      name: member.nameDisplayAs || null,
+      party: member.latestParty?.name || null,
+      constituency: member.latestHouseMembership?.membershipFrom || null,
+      thumbnailUrl: member.thumbnailUrl || null
+    });
+  } catch (err) {
+    console.error('MP lookup error:', sanitiseError(err));
+    res.status(502).json({ error: 'Could not reach Parliament Members API.' });
   }
 });
 

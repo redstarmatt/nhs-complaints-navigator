@@ -59,7 +59,7 @@ const PATHWAYS = {
         timeline: 'Usually responds within a few days',
         current: true,
         contactEmail: null,
-        portalUrl: null,
+        portalUrl: 'https://www.nhs.uk/nhs-services/hospitals/what-is-pals-patient-advice-and-liaison-service/',
         postalAddress: '[Hospital Name] PALS, [Hospital Address]',
         acknowledgmentTimeline: 'Same day or next working day',
         escalationTrigger: 'If PALS cannot resolve your concern, or you want a formal investigation',
@@ -75,7 +75,7 @@ const PATHWAYS = {
         description: 'Write a formal complaint to the trust\'s complaints department. They must acknowledge within 3 working days and agree a response timescale with you.',
         timeline: 'Response within 6 months (often 25-40 working days)',
         contactEmail: null,
-        portalUrl: null,
+        portalUrl: 'https://www.nhs.uk/nhs-services/hospitals/',
         postalAddress: 'Complaints Department, [Trust Name], [Trust Address]',
         acknowledgmentTimeline: '3 working days',
         escalationTrigger: 'If you are unhappy with the trust\'s final response',
@@ -144,7 +144,7 @@ const PATHWAYS = {
         timeline: 'Acknowledgement within 3 working days; response usually within 10-25 working days',
         current: true,
         contactEmail: null,
-        portalUrl: null,
+        portalUrl: 'https://www.nhs.uk/service-search/find-a-gp',
         postalAddress: 'Practice Manager, [Surgery Name], [Surgery Address]',
         acknowledgmentTimeline: '3 working days',
         escalationTrigger: 'If you are unhappy with the practice\'s response, or prefer not to complain to the practice directly',
@@ -226,7 +226,7 @@ const PATHWAYS = {
         timeline: 'Varies by provider; most respond within 10-20 working days',
         current: true,
         contactEmail: null,
-        portalUrl: null,
+        portalUrl: 'https://www.cqc.org.uk/care-services',
         postalAddress: '[Care Provider Name], [Provider Address]',
         acknowledgmentTimeline: '3 working days (varies by provider)',
         escalationTrigger: 'If the provider does not resolve your concern, or if the care is commissioned by the local authority',
@@ -303,12 +303,12 @@ const PATHWAYS = {
       {
         name: 'Contact the Service Directly',
         description: 'Before making a formal complaint, contact the relevant council department and explain the problem. Give them a chance to resolve it.',
-        timeline: 'Varies — allow a reasonable time for response',
+        timeline: 'Allow 10-15 working days for a response',
         current: true,
         contactEmail: null,
-        portalUrl: null,
+        portalUrl: 'https://www.gov.uk/find-local-council',
         postalAddress: null,
-        acknowledgmentTimeline: 'Varies by council',
+        acknowledgmentTimeline: '5 working days',
         escalationTrigger: 'If the service does not resolve your issue, or you are unhappy with their response',
         infoNeeded: [
           'Your name and contact details',
@@ -322,7 +322,7 @@ const PATHWAYS = {
         description: 'Submit a formal complaint to the council. Most councils have an online complaints form.',
         timeline: 'Response usually within 10-20 working days',
         contactEmail: null,
-        portalUrl: null,
+        portalUrl: 'https://www.gov.uk/find-local-council',
         postalAddress: 'Complaints Team, [Council Name], [Council Address]',
         acknowledgmentTimeline: '3-5 working days',
         escalationTrigger: 'If you are unhappy with the Stage 1 response',
@@ -406,7 +406,7 @@ const PATHWAYS = {
         timeline: 'Usually within 10-15 working days for initial response',
         current: true,
         contactEmail: null,
-        portalUrl: null,
+        portalUrl: 'https://www.police.uk/',
         postalAddress: 'Professional Standards Department, [Force Name], [Force HQ Address]',
         acknowledgmentTimeline: '15 working days',
         escalationTrigger: 'If you are unhappy with how your complaint was handled, you have the right to appeal/review',
@@ -471,12 +471,12 @@ const PATHWAYS = {
       {
         name: 'Raise Informally with Staff',
         description: 'Speak to the class teacher, head of year, or relevant member of staff. Many issues can be resolved informally.',
-        timeline: 'Varies; allow a reasonable time for response',
+        timeline: 'Allow 5-10 school days for a response',
         current: true,
         contactEmail: null,
-        portalUrl: null,
+        portalUrl: 'https://www.gov.uk/school-performance-tables',
         postalAddress: null,
-        acknowledgmentTimeline: 'Varies',
+        acknowledgmentTimeline: '3-5 school days',
         escalationTrigger: 'If the issue is not resolved informally',
         infoNeeded: [
           'Brief description of your concern',
@@ -891,6 +891,991 @@ const PATHWAYS = {
     legislation: 'HMRC Charter, Finance Act (various)'
   },
 
+  // ── Scotland Pathways ──
+
+  nhs_trust_scotland: {
+    title: 'NHS Scotland Complaint',
+    description: 'Complaints about care received at an NHS Scotland hospital or health board.',
+    timeLimit: '12 months from the event or from when you became aware of the issue',
+    timeLimitDetail: 'NHS Scotland complaints follow the same 12-month time limit. The SPSO expects complaints within 12 months of the event or of becoming aware of the issue.',
+    preRequirements: [
+      'Complain to the NHS board or hospital directly first',
+      'The board must respond before you can escalate to the SPSO'
+    ],
+    evidenceGuidance: [
+      'Dates of appointments, admissions, and discharges',
+      'Names of staff involved if known',
+      'Ward or department name',
+      'CHI number (Community Health Index — Scotland\'s patient identifier)',
+      'Copies of any correspondence',
+      'A timeline of events in your own words'
+    ],
+    warnings: [],
+    steps: [
+      {
+        name: 'Formal Complaint to the NHS Board',
+        description: 'Write a formal complaint to the NHS board\'s complaints department. They must acknowledge within 3 working days.',
+        timeline: 'Response within 20 working days',
+        current: true,
+        contactEmail: null,
+        portalUrl: 'https://www.nhsinform.scot/care-support-and-rights/health-rights/feedback-and-complaints/complaining-about-the-nhs/',
+        postalAddress: 'Complaints Department, [NHS Board Name], [Address]',
+        acknowledgmentTimeline: '3 working days',
+        escalationTrigger: 'If you are unhappy with the board\'s final response',
+        infoNeeded: [
+          'Full name and contact details',
+          'CHI number if available',
+          'Date(s) of treatment or events',
+          'Ward, department, or clinic name',
+          'Clear description of what went wrong',
+          'What outcome you want'
+        ]
+      },
+      {
+        name: 'Scottish Public Services Ombudsman (SPSO)',
+        description: 'If unhappy with the NHS board\'s response, escalate to the SPSO. They investigate independently.',
+        timeline: 'Investigation can take several months',
+        contactEmail: null,
+        portalUrl: 'https://www.spso.org.uk/complain/form/start',
+        postalAddress: 'SPSO, Bridgeside House, 99 McDonald Road, Edinburgh EH7 4NS',
+        acknowledgmentTimeline: '5 working days',
+        escalationTrigger: 'The SPSO is the final stage',
+        infoNeeded: [
+          'Copy of the NHS board\'s final complaint response',
+          'Your account of what happened',
+          'How the situation has affected you',
+          'What you want the SPSO to achieve'
+        ]
+      }
+    ],
+    tips: [
+      'The SPSO expects complaints within 12 months of the event',
+      'You can contact the Patient Advice and Support Service (PASS) for free advocacy',
+      'Professional conduct issues can be reported to the GMC, NMC, or relevant regulator',
+      'Keep copies of everything you send and receive'
+    ],
+    legislation: 'NHS Scotland Complaints Procedure, Scottish Public Services Ombudsman Act 2002'
+  },
+
+  gp_scotland: {
+    title: 'GP Surgery Complaint (Scotland)',
+    description: 'Complaints about care from your GP surgery in Scotland.',
+    timeLimit: '12 months from the event or from when you became aware of the issue',
+    timeLimitDetail: 'The same 12-month time limit applies. The SPSO expects complaints within 12 months.',
+    preRequirements: [
+      'Complain to the GP practice directly first',
+      'You can also complain to your NHS board if you prefer not to complain to the practice'
+    ],
+    evidenceGuidance: [
+      'Date(s) of the appointment(s) in question',
+      'Name of the GP or staff member if known',
+      'CHI number',
+      'Copies of any letters or test results',
+      'Notes of what was said during consultations'
+    ],
+    warnings: [],
+    steps: [
+      {
+        name: 'Complain to the GP Practice',
+        description: 'Write to the practice manager. All GP surgeries must have a complaints procedure.',
+        timeline: 'Response within 20 working days',
+        current: true,
+        contactEmail: null,
+        portalUrl: 'https://www.nhsinform.scot/care-support-and-rights/health-rights/feedback-and-complaints/complaining-about-the-nhs/',
+        postalAddress: 'Practice Manager, [Surgery Name], [Surgery Address]',
+        acknowledgmentTimeline: '3 working days',
+        escalationTrigger: 'If you are unhappy with the practice\'s response',
+        infoNeeded: [
+          'Your full name and contact details',
+          'CHI number',
+          'Date(s) of the appointment(s)',
+          'Description of what happened',
+          'What outcome you want'
+        ]
+      },
+      {
+        name: 'Scottish Public Services Ombudsman (SPSO)',
+        description: 'Final escalation if local resolution fails.',
+        timeline: 'Investigation can take several months',
+        contactEmail: null,
+        portalUrl: 'https://www.spso.org.uk/complain/form/start',
+        postalAddress: 'SPSO, Bridgeside House, 99 McDonald Road, Edinburgh EH7 4NS',
+        acknowledgmentTimeline: '5 working days',
+        escalationTrigger: 'The SPSO is the final stage',
+        infoNeeded: [
+          'Copy of the final complaint response',
+          'Your account of events',
+          'How the situation affected you',
+          'What you want the SPSO to achieve'
+        ]
+      }
+    ],
+    tips: [
+      'Contact the Patient Advice and Support Service (PASS) for free help',
+      'If a GP\'s fitness to practise is in question, report to the GMC',
+      'Keep copies of all correspondence'
+    ],
+    legislation: 'NHS Scotland Complaints Procedure, Scottish Public Services Ombudsman Act 2002'
+  },
+
+  council_scotland: {
+    title: 'Council Services Complaint (Scotland)',
+    description: 'Complaints about Scottish council services (housing, planning, social work, etc.).',
+    timeLimit: '12 months from the event (the SPSO expects complaints within 12 months)',
+    timeLimitDetail: 'Scottish councils follow a two-stage complaints procedure. The SPSO expects complaints within 12 months of the event.',
+    preRequirements: [
+      'Scottish councils have a standard two-stage complaints process',
+      'You must complete the council\'s process before going to the SPSO'
+    ],
+    evidenceGuidance: [
+      'Reference numbers for council services',
+      'Dates of contact with the council',
+      'Copies of letters, emails, or online messages',
+      'Names of council officers you dealt with',
+      'Photographs if relevant'
+    ],
+    warnings: [],
+    steps: [
+      {
+        name: 'Council Complaints (Stage 1 — Frontline Resolution)',
+        description: 'Contact the council\'s complaints team. Stage 1 aims for a quick resolution.',
+        timeline: 'Response within 5 working days',
+        current: true,
+        contactEmail: null,
+        portalUrl: 'https://www.mygov.scot/organisations',
+        postalAddress: 'Complaints Team, [Council Name], [Address]',
+        acknowledgmentTimeline: '3 working days',
+        escalationTrigger: 'If you are unhappy with the Stage 1 response',
+        infoNeeded: [
+          'Full name, address, and contact details',
+          'Service area the complaint relates to',
+          'What happened and when',
+          'What outcome you want'
+        ]
+      },
+      {
+        name: 'Council Complaints (Stage 2 — Investigation)',
+        description: 'If unhappy with Stage 1, request a Stage 2 investigation. A more senior officer will investigate.',
+        timeline: 'Response within 20 working days',
+        contactEmail: null,
+        portalUrl: null,
+        postalAddress: null,
+        acknowledgmentTimeline: '3 working days',
+        escalationTrigger: 'If you are still unhappy after Stage 2',
+        infoNeeded: [
+          'Your Stage 1 complaint reference',
+          'Why you are unhappy with the Stage 1 response',
+          'What outcome you want'
+        ]
+      },
+      {
+        name: 'Scottish Public Services Ombudsman (SPSO)',
+        description: 'Once you\'ve completed the council\'s process, the SPSO can investigate.',
+        timeline: 'Investigation can take several months',
+        contactEmail: null,
+        portalUrl: 'https://www.spso.org.uk/complain/form/start',
+        postalAddress: 'SPSO, Bridgeside House, 99 McDonald Road, Edinburgh EH7 4NS',
+        acknowledgmentTimeline: '5 working days',
+        escalationTrigger: 'The SPSO is the final stage',
+        infoNeeded: [
+          'Copy of the council\'s final complaint response',
+          'Your account of events',
+          'How the situation has affected you',
+          'What outcome you want'
+        ]
+      }
+    ],
+    tips: [
+      'Scottish councils follow a standard two-stage complaints procedure',
+      'Your local councillor can sometimes help escalate issues',
+      'Citizens Advice Scotland can provide free support',
+      'Keep records of all correspondence'
+    ],
+    legislation: 'Scottish Public Services Ombudsman Act 2002, Local Government (Scotland) Act 1973'
+  },
+
+  police_scotland: {
+    title: 'Police Scotland Complaint',
+    description: 'Complaints about Police Scotland officer conduct, decisions, or service.',
+    timeLimit: '12 months from the incident',
+    timeLimitDetail: 'You should complain within 12 months. Police Scotland has discretion to extend this.',
+    preRequirements: [
+      'You can complain directly to Police Scotland, or through PIRC for serious matters',
+      'For less serious issues, local resolution may be offered first'
+    ],
+    evidenceGuidance: [
+      'Officer name(s), collar/shoulder number(s), rank if known',
+      'Date, time, and location of the incident',
+      'Crime reference number or custody record number',
+      'Names and contact details of witnesses',
+      'Photographs of any injuries',
+      'Your own written account made as soon as possible'
+    ],
+    warnings: [
+      'Serious matters (death, serious injury, serious corruption) may be referred directly to PIRC'
+    ],
+    steps: [
+      {
+        name: 'Complain to Police Scotland',
+        description: 'Contact Police Scotland\'s Professional Standards Department.',
+        timeline: 'Usually within 15 working days for initial response',
+        current: true,
+        contactEmail: null,
+        portalUrl: 'https://www.scotland.police.uk/about-us/how-to-complain/',
+        postalAddress: 'Professional Standards Department, Police Scotland, Tulliallan Castle, Kincardine FK10 4BE',
+        acknowledgmentTimeline: '15 working days',
+        escalationTrigger: 'If you are unhappy with how your complaint was handled',
+        infoNeeded: [
+          'Your full name, address, and contact details',
+          'Date, time, and location of the incident',
+          'Name(s) or description(s) of officer(s)',
+          'Detailed account of what happened',
+          'Any reference numbers'
+        ]
+      },
+      {
+        name: 'Police Investigations & Review Commissioner (PIRC)',
+        description: 'If unhappy with Police Scotland\'s handling, you can request a review from PIRC. Serious matters may be referred directly.',
+        timeline: 'Varies; investigations can take months',
+        contactEmail: null,
+        portalUrl: 'https://pirc.scot/making-a-complaint/',
+        postalAddress: 'PIRC, Hamilton House, Hamilton Business Park, Caird Park, Hamilton ML3 0QA',
+        acknowledgmentTimeline: '10 working days',
+        escalationTrigger: 'PIRC is the final review stage for police complaints in Scotland',
+        infoNeeded: [
+          'Copy of Police Scotland\'s response',
+          'Why you are unhappy with the handling',
+          'Any new evidence'
+        ]
+      }
+    ],
+    tips: [
+      'You have 12 months from the incident to complain',
+      'For very serious matters, contact PIRC directly',
+      'Keep a written record of events as soon as possible',
+      'You can also contact the Scottish Police Authority'
+    ],
+    legislation: 'Police and Fire Reform (Scotland) Act 2012, Police Investigations & Review Commissioner'
+  },
+
+  social_care_scotland: {
+    title: 'Social Care Complaint (Scotland)',
+    description: 'Complaints about care homes, home care, or local authority social work in Scotland.',
+    timeLimit: '12 months from the event',
+    timeLimitDetail: 'The SPSO expects complaints within 12 months of the event or of becoming aware of the issue.',
+    preRequirements: [
+      'Try raising the issue directly with the care provider first',
+      'If the person is at immediate risk, contact adult protection at your local council'
+    ],
+    evidenceGuidance: [
+      'Care plan documents',
+      'Dates of specific incidents',
+      'Names of care workers involved if known',
+      'Photographs or relevant evidence',
+      'Correspondence with the care provider'
+    ],
+    warnings: [
+      'If someone is at immediate risk, contact the local authority adult protection team or call 999'
+    ],
+    steps: [
+      {
+        name: 'Complain to the Care Provider',
+        description: 'Raise your concern directly with the care home or home care provider first.',
+        timeline: 'Usually within 20 working days',
+        current: true,
+        contactEmail: null,
+        portalUrl: 'https://www.careinspectorate.com/index.php/care-services',
+        postalAddress: '[Care Provider Name], [Address]',
+        acknowledgmentTimeline: '3 working days',
+        escalationTrigger: 'If the provider does not resolve your concern',
+        infoNeeded: [
+          'Name of the person receiving care',
+          'Your relationship to them',
+          'Dates and details of incidents',
+          'What outcome you want'
+        ]
+      },
+      {
+        name: 'Local Authority Social Work Complaints',
+        description: 'If the care is commissioned by the council, complain through their social work complaints procedure.',
+        timeline: 'Varies; follows the council\'s two-stage process',
+        contactEmail: null,
+        portalUrl: null,
+        postalAddress: 'Social Work Complaints, [Council Name], [Address]',
+        acknowledgmentTimeline: '3 working days',
+        escalationTrigger: 'If the council\'s process doesn\'t resolve your complaint',
+        infoNeeded: [
+          'Full details of the complaint including dates',
+          'Name of the person receiving care and their consent',
+          'Previous complaint correspondence'
+        ]
+      },
+      {
+        name: 'Scottish Public Services Ombudsman (SPSO)',
+        description: 'If the council process doesn\'t resolve your complaint, escalate to the SPSO.',
+        timeline: 'Investigation can take several months',
+        contactEmail: null,
+        portalUrl: 'https://www.spso.org.uk/complain/form/start',
+        postalAddress: 'SPSO, Bridgeside House, 99 McDonald Road, Edinburgh EH7 4NS',
+        acknowledgmentTimeline: '5 working days',
+        escalationTrigger: 'The SPSO is the final stage',
+        infoNeeded: [
+          'Copy of the final complaint response',
+          'Your account of why the response was unsatisfactory',
+          'How the situation has affected the person',
+          'What outcome you want'
+        ]
+      }
+    ],
+    tips: [
+      'Report serious safety concerns to the Care Inspectorate',
+      'Scottish Independent Advocacy Alliance can help find local advocacy support',
+      'Keep a diary of incidents with dates and details'
+    ],
+    legislation: 'Scottish Public Services Ombudsman Act 2002, Social Work (Scotland) Act 1968, Public Services Reform (Scotland) Act 2010'
+  },
+
+  // ── Wales Pathways ──
+
+  nhs_trust_wales: {
+    title: 'NHS Wales Complaint',
+    description: 'Complaints about care received at an NHS Wales hospital or health board.',
+    timeLimit: '12 months from the event or from when you became aware of the issue',
+    timeLimitDetail: 'NHS Wales complaints follow the Putting Things Right regulations with a 12-month time limit. The PSOW expects complaints within 12 months.',
+    preRequirements: [
+      'Under Putting Things Right, all NHS concerns in Wales go through the health board',
+      'You do not need to go through PALS — complain directly to the health board\'s concerns team'
+    ],
+    evidenceGuidance: [
+      'Dates of appointments, admissions, and discharges',
+      'Names of staff involved if known',
+      'Ward or department name',
+      'NHS number',
+      'Copies of any correspondence',
+      'A timeline of events in your own words'
+    ],
+    warnings: [],
+    steps: [
+      {
+        name: 'Formal Concern to the Health Board (Putting Things Right)',
+        description: 'Submit a formal concern to the NHS health board under the Putting Things Right process. They must acknowledge within 2 working days.',
+        timeline: 'Investigation within 30 working days; complex cases may take longer',
+        current: true,
+        contactEmail: null,
+        portalUrl: 'https://www.nhsdirect.wales.nhs.uk/localservices/',
+        postalAddress: 'Concerns Team, [Health Board Name], [Address]',
+        acknowledgmentTimeline: '2 working days',
+        escalationTrigger: 'If you are unhappy with the health board\'s response',
+        infoNeeded: [
+          'Full name and contact details',
+          'NHS number if available',
+          'Date(s) of treatment or events',
+          'Ward, department, or clinic name',
+          'Clear description of what went wrong',
+          'What outcome you want'
+        ]
+      },
+      {
+        name: 'Public Services Ombudsman for Wales (PSOW)',
+        description: 'If unhappy with the health board\'s response, escalate to the PSOW.',
+        timeline: 'Investigation can take several months',
+        contactEmail: 'ask@ombudsman.wales',
+        portalUrl: 'https://www.ombudsman.wales/make-a-complaint/',
+        postalAddress: 'Public Services Ombudsman for Wales, 1 Ffordd yr Hen Gae, Pencoed CF35 5LJ',
+        acknowledgmentTimeline: '5 working days',
+        escalationTrigger: 'The PSOW is the final stage',
+        infoNeeded: [
+          'Copy of the health board\'s final response',
+          'Your account of what happened',
+          'How the situation has affected you',
+          'What you want the PSOW to achieve'
+        ]
+      }
+    ],
+    tips: [
+      'Wales uses the Putting Things Right process for all NHS concerns',
+      'Llais (formerly Community Health Council) can provide free advocacy',
+      'Professional conduct issues can be reported to the GMC, NMC, or relevant regulator',
+      'Keep copies of everything you send and receive'
+    ],
+    legislation: 'NHS (Concerns, Complaints and Redress Arrangements) (Wales) Regulations 2011, Public Services Ombudsman (Wales) Act 2019'
+  },
+
+  gp_wales: {
+    title: 'GP Surgery Complaint (Wales)',
+    description: 'Complaints about care from your GP surgery in Wales.',
+    timeLimit: '12 months from the event or from when you became aware of the issue',
+    timeLimitDetail: 'The same 12-month Putting Things Right time limit applies. The PSOW expects complaints within 12 months.',
+    preRequirements: [
+      'Under Putting Things Right, you can complain to either the GP practice or the health board',
+      'The health board manages complaints about GP services in its area'
+    ],
+    evidenceGuidance: [
+      'Date(s) of the appointment(s) in question',
+      'Name of the GP or staff member if known',
+      'NHS number',
+      'Copies of any letters or test results',
+      'Notes of what was said during consultations'
+    ],
+    warnings: [],
+    steps: [
+      {
+        name: 'Complain to the GP Practice or Health Board',
+        description: 'Under Putting Things Right, submit your concern to the GP practice or the local health board.',
+        timeline: 'Investigation within 30 working days',
+        current: true,
+        contactEmail: null,
+        portalUrl: 'https://www.nhsdirect.wales.nhs.uk/localservices/',
+        postalAddress: 'Practice Manager, [Surgery Name], [Surgery Address]',
+        acknowledgmentTimeline: '2 working days',
+        escalationTrigger: 'If you are unhappy with the response',
+        infoNeeded: [
+          'Your full name and contact details',
+          'NHS number',
+          'Date(s) of the appointment(s)',
+          'Description of what happened',
+          'What outcome you want'
+        ]
+      },
+      {
+        name: 'Public Services Ombudsman for Wales (PSOW)',
+        description: 'Final escalation if local resolution fails.',
+        timeline: 'Investigation can take several months',
+        contactEmail: 'ask@ombudsman.wales',
+        portalUrl: 'https://www.ombudsman.wales/make-a-complaint/',
+        postalAddress: 'Public Services Ombudsman for Wales, 1 Ffordd yr Hen Gae, Pencoed CF35 5LJ',
+        acknowledgmentTimeline: '5 working days',
+        escalationTrigger: 'The PSOW is the final stage',
+        infoNeeded: [
+          'Copy of the final complaint response',
+          'Your account of events',
+          'How the situation affected you',
+          'What you want the PSOW to achieve'
+        ]
+      }
+    ],
+    tips: [
+      'Llais (formerly CHC) can provide free advocacy in Wales',
+      'If a GP\'s fitness to practise is in question, report to the GMC',
+      'Keep copies of all correspondence'
+    ],
+    legislation: 'NHS (Concerns, Complaints and Redress Arrangements) (Wales) Regulations 2011, Public Services Ombudsman (Wales) Act 2019'
+  },
+
+  council_wales: {
+    title: 'Council Services Complaint (Wales)',
+    description: 'Complaints about Welsh council services (housing, planning, social services, etc.).',
+    timeLimit: '12 months from the event (the PSOW expects complaints within 12 months)',
+    timeLimitDetail: 'Welsh councils follow a two-stage complaints process. The PSOW expects complaints within 12 months of the event.',
+    preRequirements: [
+      'Welsh councils follow a standard two-stage complaints process',
+      'You must complete the council\'s process before going to the PSOW'
+    ],
+    evidenceGuidance: [
+      'Reference numbers for council services',
+      'Dates of contact with the council',
+      'Copies of letters, emails, or online messages',
+      'Names of council officers you dealt with',
+      'Photographs if relevant'
+    ],
+    warnings: [],
+    steps: [
+      {
+        name: 'Council Complaints (Stage 1 — Informal/Early Resolution)',
+        description: 'Contact the council to raise your complaint. Stage 1 aims for quick resolution.',
+        timeline: 'Response within 10 working days',
+        current: true,
+        contactEmail: null,
+        portalUrl: 'https://www.gov.wales/local-authorities-in-wales',
+        postalAddress: 'Complaints Team, [Council Name], [Address]',
+        acknowledgmentTimeline: '2 working days',
+        escalationTrigger: 'If you are unhappy with the Stage 1 response',
+        infoNeeded: [
+          'Full name, address, and contact details',
+          'Service area the complaint relates to',
+          'What happened and when',
+          'What outcome you want'
+        ]
+      },
+      {
+        name: 'Council Complaints (Stage 2 — Formal Investigation)',
+        description: 'If unhappy with Stage 1, request a Stage 2 formal investigation.',
+        timeline: 'Response within 20 working days',
+        contactEmail: null,
+        portalUrl: null,
+        postalAddress: null,
+        acknowledgmentTimeline: '5 working days',
+        escalationTrigger: 'If you are still unhappy after Stage 2',
+        infoNeeded: [
+          'Your Stage 1 complaint reference',
+          'Why you are unhappy with the Stage 1 response',
+          'What outcome you want'
+        ]
+      },
+      {
+        name: 'Public Services Ombudsman for Wales (PSOW)',
+        description: 'Once you\'ve completed the council\'s process, the PSOW can investigate.',
+        timeline: 'Investigation can take several months',
+        contactEmail: 'ask@ombudsman.wales',
+        portalUrl: 'https://www.ombudsman.wales/make-a-complaint/',
+        postalAddress: 'Public Services Ombudsman for Wales, 1 Ffordd yr Hen Gae, Pencoed CF35 5LJ',
+        acknowledgmentTimeline: '5 working days',
+        escalationTrigger: 'The PSOW is the final stage',
+        infoNeeded: [
+          'Copy of the council\'s final complaint response',
+          'Your account of events',
+          'How the situation has affected you',
+          'What outcome you want'
+        ]
+      }
+    ],
+    tips: [
+      'Welsh councils follow a standard two-stage complaints process',
+      'Your local councillor can sometimes help',
+      'Citizens Advice Cymru can provide free support',
+      'Keep records of all correspondence'
+    ],
+    legislation: 'Public Services Ombudsman (Wales) Act 2019, Local Government Act 2000'
+  },
+
+  police_wales: {
+    title: 'Police Complaint (Wales)',
+    description: 'Complaints about police officer conduct in a Welsh police force.',
+    timeLimit: '12 months from the incident',
+    timeLimitDetail: 'You should complain within 12 months. The force has discretion to extend this.',
+    preRequirements: [
+      'You can complain directly to the force, at any police station, or through the IOPC',
+      'For less serious issues, local resolution may be offered'
+    ],
+    evidenceGuidance: [
+      'Officer name(s), collar/shoulder number(s), rank if known',
+      'Date, time, and location of the incident',
+      'Crime reference number or custody record number',
+      'Names and contact details of witnesses',
+      'Photographs of any injuries',
+      'Your own written account'
+    ],
+    warnings: [
+      'Serious matters (death, serious injury, corruption) may be referred directly to the IOPC'
+    ],
+    steps: [
+      {
+        name: 'Complain to the Police Force',
+        description: 'Contact the force\'s Professional Standards Department.',
+        timeline: 'Usually within 10-15 working days for initial response',
+        current: true,
+        contactEmail: null,
+        portalUrl: 'https://www.police.uk/',
+        postalAddress: 'Professional Standards Department, [Force Name], [Force HQ Address]',
+        acknowledgmentTimeline: '15 working days',
+        escalationTrigger: 'If you are unhappy with how your complaint was handled',
+        infoNeeded: [
+          'Your full name, address, and contact details',
+          'Date, time, and location of the incident',
+          'Name(s) or description(s) of officer(s)',
+          'Detailed account of what happened',
+          'Any reference numbers'
+        ]
+      },
+      {
+        name: 'Independent Office for Police Conduct (IOPC)',
+        description: 'If unhappy with how your complaint was handled, request a review from the IOPC.',
+        timeline: 'Varies; complex investigations can take months',
+        contactEmail: 'enquiries@policeconduct.gov.uk',
+        portalUrl: 'https://www.policeconduct.gov.uk/complaints/make-a-complaint',
+        postalAddress: 'IOPC, 10 South Colonnade, Canary Wharf, London E14 4PU',
+        acknowledgmentTimeline: '15 working days',
+        escalationTrigger: 'The IOPC review is the final stage',
+        infoNeeded: [
+          'Copy of the force\'s response',
+          'Why you are unhappy with the handling',
+          'Any new evidence'
+        ]
+      }
+    ],
+    tips: [
+      'Wales has four police forces: South Wales, North Wales, Dyfed-Powys, and Gwent',
+      'The IOPC covers police complaints in England and Wales',
+      'You can also contact your Police and Crime Commissioner',
+      'Ask the force to preserve body-worn camera footage'
+    ],
+    legislation: 'Police Reform Act 2002, Police (Complaints and Misconduct) Regulations 2020'
+  },
+
+  social_care_wales: {
+    title: 'Social Care Complaint (Wales)',
+    description: 'Complaints about care homes, home care, or social services in Wales.',
+    timeLimit: '12 months from the event',
+    timeLimitDetail: 'The PSOW expects complaints within 12 months of the event or of becoming aware of the issue.',
+    preRequirements: [
+      'Try raising the issue directly with the care provider first',
+      'If the person is at immediate risk, contact adult safeguarding at your local council'
+    ],
+    evidenceGuidance: [
+      'Care plan documents',
+      'Dates of specific incidents',
+      'Names of care workers involved if known',
+      'Photographs or relevant evidence',
+      'Correspondence with the care provider'
+    ],
+    warnings: [
+      'If someone is at immediate risk, contact the local authority safeguarding team or call 999'
+    ],
+    steps: [
+      {
+        name: 'Complain to the Care Provider',
+        description: 'Raise your concern directly with the care home or home care provider.',
+        timeline: 'Usually within 20 working days',
+        current: true,
+        contactEmail: null,
+        portalUrl: 'https://www.careinspectorate.wales/',
+        postalAddress: '[Care Provider Name], [Address]',
+        acknowledgmentTimeline: '2 working days',
+        escalationTrigger: 'If the provider does not resolve your concern',
+        infoNeeded: [
+          'Name of the person receiving care',
+          'Your relationship to them',
+          'Dates and details of incidents',
+          'What outcome you want'
+        ]
+      },
+      {
+        name: 'Local Authority Social Services Complaints',
+        description: 'If the care is commissioned by the council, complain through their social services complaints procedure.',
+        timeline: 'Follows the council\'s two-stage process',
+        contactEmail: null,
+        portalUrl: null,
+        postalAddress: 'Social Services Complaints, [Council Name], [Address]',
+        acknowledgmentTimeline: '2 working days',
+        escalationTrigger: 'If the council\'s process doesn\'t resolve your complaint',
+        infoNeeded: [
+          'Full details including dates',
+          'Name of the person receiving care and their consent',
+          'Previous complaint correspondence'
+        ]
+      },
+      {
+        name: 'Public Services Ombudsman for Wales (PSOW)',
+        description: 'If the council process doesn\'t resolve your complaint, escalate to the PSOW.',
+        timeline: 'Investigation can take several months',
+        contactEmail: 'ask@ombudsman.wales',
+        portalUrl: 'https://www.ombudsman.wales/make-a-complaint/',
+        postalAddress: 'Public Services Ombudsman for Wales, 1 Ffordd yr Hen Gae, Pencoed CF35 5LJ',
+        acknowledgmentTimeline: '5 working days',
+        escalationTrigger: 'The PSOW is the final stage',
+        infoNeeded: [
+          'Copy of the final complaint response',
+          'Your account of why the response was unsatisfactory',
+          'How the situation has affected the person',
+          'What outcome you want'
+        ]
+      }
+    ],
+    tips: [
+      'Report serious safety concerns to Care Inspectorate Wales (CIW)',
+      'Age Cymru and Llais can provide advocacy support',
+      'Keep a diary of incidents with dates and details'
+    ],
+    legislation: 'Public Services Ombudsman (Wales) Act 2019, Social Services and Well-being (Wales) Act 2014'
+  },
+
+  // ── Northern Ireland Pathways ──
+
+  nhs_trust_ni: {
+    title: 'Health & Social Care Complaint (Northern Ireland)',
+    description: 'Complaints about care received at an HSC trust in Northern Ireland.',
+    timeLimit: '6 months from the event or from when you became aware of the issue',
+    timeLimitDetail: 'The Northern Ireland Ombudsman expects complaints within 6 months of the trust\'s final response. The trust itself expects complaints within 12 months of the event, but may accept late complaints at its discretion.',
+    preRequirements: [
+      'Complain to the HSC trust directly first',
+      'The trust must respond before you can escalate to the NI Ombudsman'
+    ],
+    evidenceGuidance: [
+      'Dates of appointments, admissions, and discharges',
+      'Names of staff involved if known',
+      'Ward or department name',
+      'Health and Care Number (HCN)',
+      'Copies of any correspondence',
+      'A timeline of events in your own words'
+    ],
+    warnings: [],
+    steps: [
+      {
+        name: 'Formal Complaint to the HSC Trust',
+        description: 'Write a formal complaint to the HSC trust\'s complaints department.',
+        timeline: 'Acknowledgment within 2 working days; response usually within 20 working days',
+        current: true,
+        contactEmail: null,
+        portalUrl: 'https://online.hscni.net/',
+        postalAddress: 'Complaints Department, [HSC Trust Name], [Address]',
+        acknowledgmentTimeline: '2 working days',
+        escalationTrigger: 'If you are unhappy with the trust\'s final response',
+        infoNeeded: [
+          'Full name and contact details',
+          'Health and Care Number if available',
+          'Date(s) of treatment or events',
+          'Ward, department, or clinic name',
+          'Clear description of what went wrong',
+          'What outcome you want'
+        ]
+      },
+      {
+        name: 'Northern Ireland Public Services Ombudsman (NIPSO)',
+        description: 'If unhappy with the trust\'s response, escalate to NIPSO.',
+        timeline: 'Investigation can take several months',
+        contactEmail: 'nipso@nipso.org.uk',
+        portalUrl: 'https://nipso.org.uk/complain',
+        postalAddress: 'NIPSO, Progressive House, 33 Wellington Place, Belfast BT1 6HN',
+        acknowledgmentTimeline: '5 working days',
+        escalationTrigger: 'NIPSO is the final stage',
+        infoNeeded: [
+          'Copy of the trust\'s final complaint response',
+          'Your account of what happened',
+          'How the situation has affected you',
+          'What you want NIPSO to achieve'
+        ]
+      }
+    ],
+    tips: [
+      'The Patient and Client Council (PCC) provides free advocacy for health complaints in NI',
+      'Professional conduct issues can be reported to the GMC, NMC, or relevant regulator',
+      'Keep copies of everything you send and receive'
+    ],
+    legislation: 'Health and Social Care (Reform) Act (Northern Ireland) 2009, Commissioner for Complaints (NI) Order 1996'
+  },
+
+  gp_ni: {
+    title: 'GP Surgery Complaint (Northern Ireland)',
+    description: 'Complaints about care from your GP surgery in Northern Ireland.',
+    timeLimit: '6 months from the final response to escalate to NIPSO',
+    timeLimitDetail: 'Complain to the GP practice within 12 months of the event. NIPSO expects referrals within 6 months of the final response.',
+    preRequirements: [
+      'Complain to the GP practice directly first',
+      'You can also contact the HSC Board for assistance'
+    ],
+    evidenceGuidance: [
+      'Date(s) of the appointment(s)',
+      'Name of the GP or staff member if known',
+      'Health and Care Number',
+      'Copies of any letters or test results',
+      'Notes of what was said during consultations'
+    ],
+    warnings: [],
+    steps: [
+      {
+        name: 'Complain to the GP Practice',
+        description: 'Write to the practice manager.',
+        timeline: 'Response usually within 20 working days',
+        current: true,
+        contactEmail: null,
+        portalUrl: 'https://online.hscni.net/',
+        postalAddress: 'Practice Manager, [Surgery Name], [Surgery Address]',
+        acknowledgmentTimeline: '2 working days',
+        escalationTrigger: 'If you are unhappy with the practice\'s response',
+        infoNeeded: [
+          'Your full name and contact details',
+          'Health and Care Number',
+          'Date(s) of the appointment(s)',
+          'Description of what happened',
+          'What outcome you want'
+        ]
+      },
+      {
+        name: 'Northern Ireland Public Services Ombudsman (NIPSO)',
+        description: 'Final escalation if local resolution fails.',
+        timeline: 'Investigation can take several months',
+        contactEmail: 'nipso@nipso.org.uk',
+        portalUrl: 'https://nipso.org.uk/complain',
+        postalAddress: 'NIPSO, Progressive House, 33 Wellington Place, Belfast BT1 6HN',
+        acknowledgmentTimeline: '5 working days',
+        escalationTrigger: 'NIPSO is the final stage',
+        infoNeeded: [
+          'Copy of the final complaint response',
+          'Your account of events',
+          'How the situation affected you',
+          'What you want NIPSO to achieve'
+        ]
+      }
+    ],
+    tips: [
+      'The Patient and Client Council (PCC) can help with complaints in NI',
+      'If a GP\'s fitness to practise is in question, report to the GMC',
+      'Keep copies of all correspondence'
+    ],
+    legislation: 'Health and Social Care (Reform) Act (NI) 2009, Commissioner for Complaints (NI) Order 1996'
+  },
+
+  council_ni: {
+    title: 'Council Services Complaint (Northern Ireland)',
+    description: 'Complaints about Northern Ireland council services.',
+    timeLimit: '6 months from the final response to escalate to NIPSO',
+    timeLimitDetail: 'Complain to the council first. NIPSO expects referrals within 6 months of the council\'s final response.',
+    preRequirements: [
+      'You must complete the council\'s internal complaints process before going to NIPSO',
+      'Contact the relevant department first'
+    ],
+    evidenceGuidance: [
+      'Reference numbers for council services',
+      'Dates of contact with the council',
+      'Copies of letters, emails, or online messages',
+      'Names of council officers you dealt with'
+    ],
+    warnings: [],
+    steps: [
+      {
+        name: 'Council Complaints Procedure',
+        description: 'Submit a formal complaint to the council. Most NI councils have an online complaints form.',
+        timeline: 'Response usually within 15-20 working days',
+        current: true,
+        contactEmail: null,
+        portalUrl: 'https://www.nidirect.gov.uk/contacts/local-councils-in-northern-ireland',
+        postalAddress: 'Complaints Team, [Council Name], [Address]',
+        acknowledgmentTimeline: '3 working days',
+        escalationTrigger: 'If you are unhappy with the council\'s response',
+        infoNeeded: [
+          'Full name, address, and contact details',
+          'Service area the complaint relates to',
+          'What happened and when',
+          'What outcome you want'
+        ]
+      },
+      {
+        name: 'Northern Ireland Public Services Ombudsman (NIPSO)',
+        description: 'Once you\'ve exhausted the council\'s process, NIPSO can investigate.',
+        timeline: 'Investigation can take several months',
+        contactEmail: 'nipso@nipso.org.uk',
+        portalUrl: 'https://nipso.org.uk/complain',
+        postalAddress: 'NIPSO, Progressive House, 33 Wellington Place, Belfast BT1 6HN',
+        acknowledgmentTimeline: '5 working days',
+        escalationTrigger: 'NIPSO is the final stage',
+        infoNeeded: [
+          'Copy of the council\'s final complaint response',
+          'Your account of events',
+          'How the situation has affected you',
+          'What outcome you want'
+        ]
+      }
+    ],
+    tips: [
+      'Northern Ireland has 11 councils',
+      'Your local councillor can sometimes help',
+      'Advice NI can provide free support',
+      'Keep records of all correspondence'
+    ],
+    legislation: 'Commissioner for Complaints (NI) Order 1996, Local Government Act (Northern Ireland) 2014'
+  },
+
+  police_ni: {
+    title: 'PSNI Complaint (Northern Ireland)',
+    description: 'Complaints about PSNI officer conduct, decisions, or service.',
+    timeLimit: '12 months from the incident',
+    timeLimitDetail: 'You should complain within 12 months. The Police Ombudsman has discretion to extend this.',
+    preRequirements: [
+      'In Northern Ireland, police complaints go to the Police Ombudsman, not the force itself',
+      'The Police Ombudsman for Northern Ireland is independent of the PSNI'
+    ],
+    evidenceGuidance: [
+      'Officer name(s), service number(s), rank if known',
+      'Date, time, and location of the incident',
+      'Crime reference number or custody record number',
+      'Names and contact details of witnesses',
+      'Photographs of any injuries',
+      'Your own written account'
+    ],
+    warnings: [
+      'In NI, complaints about police go directly to the Police Ombudsman — not to the PSNI itself'
+    ],
+    steps: [
+      {
+        name: 'Police Ombudsman for Northern Ireland',
+        description: 'Submit your complaint directly to the Police Ombudsman. They investigate all complaints about PSNI officers independently.',
+        timeline: 'Varies by complexity; they will explain the expected timeline',
+        current: true,
+        contactEmail: null,
+        portalUrl: 'https://www.policeombudsman.org/Make-a-Complaint',
+        postalAddress: 'Police Ombudsman for Northern Ireland, New Cathedral Buildings, 11 Church Street, Belfast BT1 1PG',
+        acknowledgmentTimeline: '5 working days',
+        escalationTrigger: 'If you are unhappy with the Ombudsman\'s findings, you may seek judicial review',
+        infoNeeded: [
+          'Your full name, address, and contact details',
+          'Date, time, and location of the incident',
+          'Name(s) or description(s) of officer(s)',
+          'Detailed account of what happened',
+          'Any reference numbers'
+        ]
+      }
+    ],
+    tips: [
+      'The Police Ombudsman is independent — complaints do not go through the PSNI',
+      'You can make a complaint in person, by phone, by email, or online',
+      'The Ombudsman can investigate current and historical complaints',
+      'You can get free legal advice from a solicitor specialising in police complaints'
+    ],
+    legislation: 'Police (Northern Ireland) Act 1998, Police (Northern Ireland) Act 2000'
+  },
+
+  social_care_ni: {
+    title: 'Social Care Complaint (Northern Ireland)',
+    description: 'Complaints about care homes, home care, or HSC trust social services in Northern Ireland.',
+    timeLimit: '6 months from the final response to escalate to NIPSO',
+    timeLimitDetail: 'Complain to the HSC trust or care provider first. NIPSO expects referrals within 6 months of the final response.',
+    preRequirements: [
+      'Try raising the issue directly with the care provider or HSC trust first',
+      'If the person is at immediate risk, contact adult safeguarding'
+    ],
+    evidenceGuidance: [
+      'Care plan documents',
+      'Dates of specific incidents',
+      'Names of care workers involved if known',
+      'Photographs or relevant evidence',
+      'Correspondence with the care provider'
+    ],
+    warnings: [
+      'If someone is at immediate risk, contact the HSC trust adult safeguarding team or call 999'
+    ],
+    steps: [
+      {
+        name: 'Complain to the Care Provider or HSC Trust',
+        description: 'Raise your concern with the care provider or the HSC trust\'s complaints department.',
+        timeline: 'Usually within 20 working days',
+        current: true,
+        contactEmail: null,
+        portalUrl: 'https://www.rqia.org.uk/services/',
+        postalAddress: '[Care Provider Name / HSC Trust], [Address]',
+        acknowledgmentTimeline: '2 working days',
+        escalationTrigger: 'If the provider or trust does not resolve your concern',
+        infoNeeded: [
+          'Name of the person receiving care',
+          'Your relationship to them',
+          'Dates and details of incidents',
+          'What outcome you want'
+        ]
+      },
+      {
+        name: 'Northern Ireland Public Services Ombudsman (NIPSO)',
+        description: 'If the provider/trust process doesn\'t resolve your complaint, escalate to NIPSO.',
+        timeline: 'Investigation can take several months',
+        contactEmail: 'nipso@nipso.org.uk',
+        portalUrl: 'https://nipso.org.uk/complain',
+        postalAddress: 'NIPSO, Progressive House, 33 Wellington Place, Belfast BT1 6HN',
+        acknowledgmentTimeline: '5 working days',
+        escalationTrigger: 'NIPSO is the final stage',
+        infoNeeded: [
+          'Copy of the final complaint response',
+          'Your account of why the response was unsatisfactory',
+          'How the situation has affected the person',
+          'What outcome you want'
+        ]
+      }
+    ],
+    tips: [
+      'Report serious safety concerns to the Regulation and Quality Improvement Authority (RQIA)',
+      'The Patient and Client Council can provide advocacy support',
+      'Keep a diary of incidents with dates and details'
+    ],
+    legislation: 'Health and Social Care (Reform) Act (NI) 2009, Commissioner for Complaints (NI) Order 1996'
+  },
+
   other_gov: {
     title: 'Government Body Complaint',
     description: 'Complaints about other government departments or agencies.',
@@ -958,12 +1943,15 @@ const PATHWAYS = {
 /**
  * Get the complaint pathway for a given body type.
  * For DWP, the complaintType parameter determines which pathway to return.
+ * For devolved nations (Scotland, Wales, Northern Ireland), returns nation-specific pathway if available.
  *
  * @param {string} bodyType - The type of public body
  * @param {string} [complaintType] - Optional: 'decision' or 'service' (used for DWP)
+ * @param {string} [nation] - Optional: 'England', 'Scotland', 'Wales', or 'Northern Ireland'
  * @returns {Pathway|null}
  */
-export function getPathway(bodyType, complaintType) {
+export function getPathway(bodyType, complaintType, nation) {
+  // DWP/HMRC are UK-wide — no nation variant
   if (bodyType === 'dwp' && complaintType) {
     if (complaintType === 'decision') {
       return PATHWAYS.dwp_decision;
@@ -972,6 +1960,16 @@ export function getPathway(bodyType, complaintType) {
       return PATHWAYS.dwp_service;
     }
   }
+
+  // Check for nation-specific pathway
+  if (nation && nation !== 'England') {
+    const nationKey = { Scotland: 'scotland', Wales: 'wales', 'Northern Ireland': 'ni' }[nation];
+    if (nationKey) {
+      const nationPathway = PATHWAYS[`${bodyType}_${nationKey}`];
+      if (nationPathway) return nationPathway;
+    }
+  }
+
   return PATHWAYS[bodyType] || PATHWAYS.other_gov;
 }
 

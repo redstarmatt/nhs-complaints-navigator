@@ -25,6 +25,15 @@
     </p>
     <button id="start-btn" class="landing__cta">Start your complaint</button>
 
+    <!-- Saved Sessions (populated by JS) -->
+    <div id="saved-sessions" class="saved-sessions hidden"></div>
+
+    <!-- Data management links -->
+    <div id="landing-data-links" class="landing__data-links hidden">
+      <button id="delete-all-data" class="landing__data-link">Delete all my data</button>
+      <button id="landing-privacy-link" class="landing__data-link">Privacy notice</button>
+    </div>
+
     <div class="landing__features">
       <div class="feature-card">
         <div class="feature-card__title">Tell your story</div>
@@ -62,6 +71,8 @@
       </div>
     </header>
 
+    <div class="ai-disclaimer" role="status">AI can make mistakes. Check all information before acting on it. <span class="ai-disclaimer__detail">This tool provides general guidance, not legal advice.</span></div>
+
     <div id="chat-messages" class="chat-messages" role="log" aria-live="polite" aria-label="Chat messages">
       <div id="typing-indicator" class="typing-indicator" aria-label="AI is typing">
         <div class="typing-indicator__dots">
@@ -69,6 +80,7 @@
           <span class="typing-indicator__dot"></span>
           <span class="typing-indicator__dot"></span>
         </div>
+        <span id="typing-label" class="typing-indicator__label">Thinking...</span>
       </div>
     </div>
 
@@ -105,6 +117,8 @@
       <div style="width:60px"></div>
     </header>
 
+    <div class="ai-disclaimer" role="status">AI can make mistakes. Check all information before acting on it. <span class="ai-disclaimer__detail">This tool provides general guidance, not legal advice.</span></div>
+
     <div class="letter-editor">
       <p class="letter-usage-hint">Edit the text below to make it your own, then copy it into an online complaint form, send it as an email, or download it as a letter to post.</p>
       <textarea
@@ -113,13 +127,129 @@
         aria-label="Complaint text editor"
         spellcheck="true"
       ></textarea>
+      <div class="letter-review-gate">
+        <label class="letter-review-gate__label">
+          <input type="checkbox" id="letter-review-check">
+          <span>I have reviewed this letter and confirm the facts are accurate. I understand this text was drafted by AI and I am responsible for checking it before sending.</span>
+        </label>
+      </div>
       <div class="letter-inline-actions">
-        <button id="letter-copy" class="btn btn--primary">Copy to clipboard</button>
-        <button id="letter-download-pdf" class="btn btn--green">Download PDF</button>
-        <button id="letter-download-docx" class="btn btn--outline">Download Word</button>
+        <button id="letter-copy" class="btn btn--primary" disabled>Copy to clipboard</button>
+        <button id="letter-download-pdf" class="btn btn--green" disabled>Download PDF</button>
+        <button id="letter-download-docx" class="btn btn--outline" disabled>Download Word</button>
+        <button id="letter-print" class="btn btn--outline" disabled>Print</button>
       </div>
       <!-- Next Steps / Submission Panel (populated by JS) -->
       <div id="next-steps-container"></div>
+    </div>
+  </div>
+
+  <!-- ── Complaint Diary ── -->
+  <div id="diary-container" class="diary-container" role="main">
+    <header class="diary-header">
+      <button id="diary-back" class="diary-header__back" aria-label="Back">&larr; Back</button>
+      <h1 class="diary-header__title">Complaint Diary</h1>
+      <button id="diary-add" class="btn btn--primary btn--sm">Add entry</button>
+    </header>
+    <div class="ai-disclaimer" role="status">AI can make mistakes. Check all information before acting on it. <span class="ai-disclaimer__detail">This tool provides general guidance, not legal advice.</span></div>
+    <div id="diary-entries" class="diary-entries"></div>
+    <div id="diary-empty" class="diary-empty">No entries yet. Use the diary to track your complaint progress.</div>
+  </div>
+
+  <!-- ── Consent Gate ── -->
+  <div id="consent-gate" class="consent-gate" role="dialog" aria-modal="true" aria-label="Data processing consent">
+    <div class="consent-gate__card">
+      <h2 class="consent-gate__title">Before you start</h2>
+      <p class="consent-gate__intro">
+        This tool helps you draft complaints about UK public services. To do that, it needs to process personal information you share — including details about your health, disability, or other sensitive matters.
+      </p>
+      <div class="consent-gate__section">
+        <h3 class="consent-gate__heading">How your data is used</h3>
+        <ul class="consent-gate__list">
+          <li>What you type is sent to Google's Gemini AI to generate responses and draft your complaint. Google processes this data under a Data Processing Agreement.</li>
+          <li>Your complaint details are saved in your browser's local storage so you can resume later. This data stays on your device.</li>
+          <li>If you provide a postcode, it is sent to Postcodes.io and the UK Parliament API to identify your local services and MP.</li>
+          <li>If you choose to send your complaint by email, it is sent via our email service to the public body you specify.</li>
+        </ul>
+      </div>
+      <div class="consent-gate__section">
+        <h3 class="consent-gate__heading">Your rights</h3>
+        <p>You can delete all your data at any time from the home screen. Saved sessions are automatically deleted after 30 days. <button id="consent-privacy-link" class="consent-gate__link">Read the full privacy notice</button></p>
+      </div>
+      <div class="consent-gate__checks">
+        <label class="consent-gate__check">
+          <input type="checkbox" id="consent-check-1">
+          <span>I understand my complaint details (which may include health and disability information) will be processed by Google's AI service to help draft my complaint.</span>
+        </label>
+        <label class="consent-gate__check">
+          <input type="checkbox" id="consent-check-2">
+          <span>I understand this tool does not report crimes or make safeguarding referrals on my behalf.</span>
+        </label>
+        <label class="consent-gate__check">
+          <input type="checkbox" id="consent-check-3">
+          <span>I confirm I am aged 18 or over (or I am a parent/guardian using this on behalf of someone under 18).</span>
+        </label>
+      </div>
+      <button id="consent-accept" class="btn btn--primary consent-gate__accept" disabled>I agree — continue</button>
+    </div>
+  </div>
+
+  <!-- ── Privacy Notice Modal ── -->
+  <div id="privacy-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Privacy notice">
+    <div class="modal privacy-modal">
+      <h2 class="modal__title">Privacy Notice</h2>
+      <div class="privacy-modal__body">
+        <h3>Who we are</h3>
+        <p>Complaints Navigator is operated by [DATA CONTROLLER NAME AND CONTACT DETAILS TO BE INSERTED]. We are the data controller for the personal information you provide through this tool.</p>
+
+        <h3>What we collect</h3>
+        <p>When you use this tool, we process the following personal data:</p>
+        <ul>
+          <li><strong>Complaint details:</strong> Your description of what happened, names of staff involved, dates, desired outcome, and personal impact.</li>
+          <li><strong>Special category data:</strong> Health information, disability details, mental health information, and other sensitive data you include in your complaint narrative.</li>
+          <li><strong>Identifiers:</strong> NHS number, National Insurance number, claim reference numbers, or other identifiers you mention.</li>
+          <li><strong>Location:</strong> Your postcode, if provided.</li>
+          <li><strong>Contact details:</strong> Email address of the public body (not yours), if you use the email sending feature.</li>
+        </ul>
+
+        <h3>Why we process it and our lawful basis</h3>
+        <p><strong>Lawful basis (Article 6):</strong> Your explicit consent (Article 6(1)(a) UK GDPR).</p>
+        <p><strong>Special category condition (Article 9):</strong> Your explicit consent (Article 9(2)(a) UK GDPR).</p>
+        <p>You can withdraw consent at any time by deleting your data using the "Delete all my data" option on the home screen. Withdrawal does not affect the lawfulness of processing before withdrawal.</p>
+
+        <h3>Who receives your data</h3>
+        <table class="privacy-modal__table">
+          <thead><tr><th>Recipient</th><th>Data shared</th><th>Purpose</th></tr></thead>
+          <tbody>
+            <tr><td>Google (Gemini AI)</td><td>Complaint narrative (identifiers redacted where possible)</td><td>AI processing to generate responses and draft complaint text</td></tr>
+            <tr><td>Postcodes.io</td><td>Postcode only</td><td>Identify local council, NHS body, police force</td></tr>
+            <tr><td>UK Parliament API</td><td>Postcode only</td><td>Identify local MP</td></tr>
+            <tr><td>Public body (if emailed)</td><td>Complaint letter</td><td>Submitting your complaint</td></tr>
+          </tbody>
+        </table>
+
+        <h3>International transfers</h3>
+        <p>Data sent to Google's Gemini AI may be processed outside the UK. This is covered by Google's Data Processing Addendum, which includes UK Standard Contractual Clauses and the UK-US Data Bridge.</p>
+
+        <h3>How long we keep your data</h3>
+        <ul>
+          <li><strong>Browser storage:</strong> Saved sessions are automatically deleted after 30 days of inactivity. You can delete them sooner.</li>
+          <li><strong>Google AI:</strong> Data sent to Google may be retained for a limited period for security and compliance purposes, as set out in Google's terms.</li>
+          <li><strong>Our server:</strong> We do not store your complaint data on our server. It passes through only to reach the AI service.</li>
+        </ul>
+
+        <h3>Your rights</h3>
+        <p>Under UK GDPR, you have the right to: access your data, rectify inaccuracies, erase your data, restrict processing, data portability, object to processing, and withdraw consent. To exercise these rights, contact [DATA CONTROLLER CONTACT]. You also have the right to lodge a complaint with the ICO (ico.org.uk).</p>
+
+        <h3>Data minimisation</h3>
+        <p>We redact identifiers (such as NHS numbers and National Insurance numbers) before sending your conversation to the AI service where possible. These are reinserted into the final complaint text locally on your device.</p>
+
+        <h3>Children</h3>
+        <p>This service is intended for adults aged 18 and over. If you are under 18, please ask a parent or guardian to use this tool on your behalf.</p>
+      </div>
+      <div class="modal__actions">
+        <button id="privacy-modal-close" class="btn btn--primary">Close</button>
+      </div>
     </div>
   </div>
 
